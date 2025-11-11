@@ -20,7 +20,7 @@ servers:
   - url: http://localhost:20375/
 
 info:
-  description: Service for ...
+  description: Service for validating BagPacks.
   version: ${project.version}
   title: dd-validate-bagpack-api
   contact:
