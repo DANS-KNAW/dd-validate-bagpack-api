@@ -29,7 +29,7 @@
     <artifactId>dd-validate-bagpack-api</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
-    <name>Dd Validate Bagpack Api</name>
+    <name>DD Validate BagPack API</name>
     <url>https://github.com/DANS-KNAW/dd-validate-bagpack-api</url>
     <description>Service API for validating BagPacks</description>
     <inceptionYear>2025</inceptionYear>
