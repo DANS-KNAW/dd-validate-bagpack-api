@@ -47,8 +47,7 @@ paths:
 
   /validate:
     post:
-      summary:
-        Validates the bagpack specified in the message body.
+      summary: Submits a request to validate a BagPack. The Location header in the response contains the URL to poll for the status of the validation job.
       operationId: validateBagPack
       requestBody:
         content:
@@ -56,33 +55,44 @@ paths:
             schema:
               $ref: '#/components/schemas/ValidateCommand'
       responses:
-        '200':
-          $ref: "#/components/responses/Ok"
+        '201':
+          description: Validation request accepted and job created
+          headers:
+            Location:
+              description: URL to poll for the validation job status
+              schema:
+                type: string
+                format: uri
+              example: "http://localhost:20375/validate/550e8400-e29b-41d4-a716-446655440000"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestSubmittedMessage'
         '400':
           $ref: "#/components/responses/BadRequest"
 
+  /validate/{jobId}:
+    get:
+      summary: Get the status and result of a validation job
+      operationId: getValidationStatus
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Job status and result (if completed)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationJobStatus'
+        '404':
+          description: Job not found
+
 components:
-  responses:
-    Ok:
-      description: Validation result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidationResult'
-
-    BadRequest:
-      description: The request was invalid
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                description: Description of what was wrong with the request
-            example:
-              error: 'The bagLocation field is missing.'
-
   schemas:
     ValidateCommand:
       type: object
@@ -133,3 +143,54 @@ components:
               violation:
                 description: description of how the bag violated this rule
                 type: string
+
+    ValidationJobStatus:
+      type: object
+      required:
+        - jobId
+        - status
+      properties:
+        jobId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [ PENDING, RUNNING, DONE, FAILED ]
+        result:
+          $ref: '#/components/schemas/ValidationResult'
+        error:
+          type: string
+          description: Only present when status is FAILED
+      example:
+        jobId: "550e8400-e29b-41d4-a716-446655440000"
+        status: "DONE"
+        result:
+          bagLocation: /path/to/myBag.zip
+          profileVersion: 1.0.1
+          isCompliant: true
+          ruleViolations: [ ]
+
+    RequestSubmittedMessage:
+      type: object
+      properties:
+        jobId:
+          type: string
+          format: uuid
+          description: The ID of the job that was submitted.
+        message:
+          type: string
+          description: A message that describes the status of the job.
+
+  responses:
+    BadRequest:
+      description: The request was invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Description of what was wrong with the request
+            example:
+              error: 'The bagLocation field is missing.'
