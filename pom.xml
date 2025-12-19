@@ -22,7 +22,7 @@
     <parent>
         <groupId>nl.knaw.dans</groupId>
         <artifactId>dd-parent</artifactId>
-        <version>1.10.0</version>
+        <version>1.11.0</version>
     </parent>
 
     <artifactId>dd-validate-bagpack-api</artifactId>
@@ -37,10 +37,6 @@
         <developerConnection>scm:git:ssh://github.com/DANS-KNAW/dd-validate-bagpack-api</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
-    <properties>
-        <dans-build-resources-maven-plugin.version>0.7.0</dans-build-resources-maven-plugin.version>
-    </properties>
 
     <build>
         <resources>
