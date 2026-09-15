@@ -30,7 +30,7 @@
 
     <name>DD Validate BagPack API</name>
     <description>Service API for validating BagPacks</description>
-    <url>https://github.com/DANS-KNAW/dd-validate-bagpack-api</url>
+    <url>https://dans-knaw.github.io/dd-validate-bagpack-api</url>
     <inceptionYear>2025</inceptionYear>
 
     <scm>
