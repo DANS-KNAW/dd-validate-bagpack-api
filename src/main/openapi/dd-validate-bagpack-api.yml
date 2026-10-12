@@ -33,17 +33,14 @@ paths:
   /:
     get:
       summary: Returns a description of the service.
-      operationId: getServiceDescription
+      operationId: rootGet
       responses:
         '200':
           description: description of the service
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                description: a plain text, human readable description of the service
-                example: |
-                  Validate BagPack Running (v${project.version})
+                $ref: '#/components/schemas/AppInfo'
 
   /validate:
     post:
@@ -94,6 +91,13 @@ paths:
 
 components:
   schemas:
+    AppInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        version:
+          type: string
     ValidateCommand:
       type: object
       description: Information about where to find the bag
