@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>dd-validate-bagpack-api</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2-SNAPSHOT</version>
 
     <name>DD Validate BagPack API</name>
     <description>Service API for validating BagPacks</description>
@@ -36,7 +36,7 @@
     <scm>
         <connection>scm:git:https://github.com/DANS-KNAW/dd-validate-bagpack-api</connection>
         <developerConnection>scm:git:ssh://github.com/DANS-KNAW/dd-validate-bagpack-api</developerConnection>
-        <tag>v0.2.1</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/DANS-KNAW/dd-validate-bagpack-api</url>
     </scm>
 
